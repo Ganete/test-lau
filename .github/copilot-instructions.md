@@ -1,4 +1,4 @@
-Al final de cada comentario de revisión que hagas, añade la frase: 'CODE_REVIEW_DEBUG_OK' y un emoji de robot 🤖.
+Al final de cada comentario de revisión que hagas, añade la frase: 'DEVELOP_CODE_REVIEW_DEBUG_OK' y un emoji de princesa 👸.
 
 Asegúrate de que todos los comentarios del código estén en español.
 
