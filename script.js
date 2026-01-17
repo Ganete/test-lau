@@ -24,7 +24,9 @@ function addToCart(name, price) {
     
     saveCart();
     updateCartDisplay();
-    showNotification(`${name} añadido al carrito`);
+    // Escape HTML to prevent XSS
+    const escapedName = escapeHtml(name);
+    showNotification(`${escapedName} añadido al carrito`);
 }
 
 // Remove item from cart
@@ -32,7 +34,9 @@ function removeFromCart(name) {
     cart = cart.filter(item => item.name !== name);
     saveCart();
     updateCartDisplay();
-    showNotification(`${name} eliminado del carrito`);
+    // Escape HTML to prevent XSS
+    const escapedName = escapeHtml(name);
+    showNotification(`${escapedName} eliminado del carrito`);
 }
 
 // Update cart display
@@ -59,13 +63,17 @@ function updateCartDisplay() {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
         
+        // Escape HTML to prevent XSS
+        const escapedName = escapeHtml(item.name);
+        const escapedNameForAttr = item.name.replace(/'/g, "\\'");
+        
         itemsHTML += `
             <div class="cart-item">
                 <div class="cart-item-info">
-                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-name">${escapedName}</div>
                     <div class="cart-item-price">€${item.price} x ${item.quantity} = €${itemTotal}</div>
                 </div>
-                <button class="remove-btn" onclick="removeFromCart('${item.name}')">Eliminar</button>
+                <button class="remove-btn" onclick="removeFromCart('${escapedNameForAttr}')">Eliminar</button>
             </div>
         `;
     });
@@ -120,8 +128,43 @@ function loadCart() {
     }
 }
 
+// Add animation styles once
+let notificationStylesAdded = false;
+function addNotificationStyles() {
+    if (!notificationStylesAdded) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        notificationStylesAdded = true;
+    }
+}
+
 // Show notification
 function showNotification(message) {
+    addNotificationStyles();
+    
     // Create notification element
     const notification = document.createElement('div');
     notification.style.cssText = `
@@ -138,39 +181,22 @@ function showNotification(message) {
     `;
     notification.textContent = message;
     
-    // Add animation styles
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-    
     document.body.appendChild(notification);
     
     // Remove notification after 3 seconds
     setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (notification.parentNode) {
+                document.body.removeChild(notification);
+            }
         }, 300);
     }, 3000);
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
