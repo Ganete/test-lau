@@ -1,5 +1,5 @@
-Al final de cada comentario de revisión que hagas, añade la frase: 'CODE_REVIEW_DEBUG_OK' y un emoji de robot 🤖.
+# Instrucciones para la revisión de código con GitHub Copilot
 
-Asegúrate de que todos los comentarios del código estén en español.
-
-Asegúrate de que todas las funciones y variables del código empiecen por la palabra "cosmetic" para evitar conflictos de nombres con otras bibliotecas o scripts.
+1. **Idioma de la revisión**: Asegúrate de que todas las revisiones de código se realicen en español.
+2. **Código**: Todo el código, incluyendo comentarios y nombres de variables, debe estar en inglés.
+3. **Indentación**: Revisa que todo el código tenga siempre 2 espacios para la indentación.
