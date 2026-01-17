@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MobileShop - Tienda de Móviles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📱 MobileShop</h1>
+            <p class="tagline">Los mejores móviles al mejor precio</p>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒 Carrito (<span id="cart-count">0</span>)
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Bienvenido a MobileShop</h2>
+            <p>Descubre nuestra selección de smartphones de última generación</p>
+        </section>
+
+        <section class="products" id="products">
+            <h2>Nuestros Productos</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <h3>iPhone 15 Pro</h3>
+                    <p class="description">Potencia increíble con chip A17 Pro y cámara de 48MP</p>
+                    <p class="price">€1,199</p>
+                    <button onclick="addToCart('iPhone 15 Pro', 1199)">Añadir al Carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <h3>Samsung Galaxy S24</h3>
+                    <p class="description">Diseño elegante con pantalla Dynamic AMOLED 2X</p>
+                    <p class="price">€899</p>
+                    <button onclick="addToCart('Samsung Galaxy S24', 899)">Añadir al Carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <h3>Google Pixel 8</h3>
+                    <p class="description">La mejor cámara con IA de Google</p>
+                    <p class="price">€699</p>
+                    <button onclick="addToCart('Google Pixel 8', 699)">Añadir al Carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <h3>Xiaomi 14</h3>
+                    <p class="description">Alto rendimiento a precio competitivo</p>
+                    <p class="price">€599</p>
+                    <button onclick="addToCart('Xiaomi 14', 599)">Añadir al Carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <h3>OnePlus 12</h3>
+                    <p class="description">Carga rápida y pantalla fluida de 120Hz</p>
+                    <p class="price">€749</p>
+                    <button onclick="addToCart('OnePlus 12', 749)">Añadir al Carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <h3>Motorola Edge 40</h3>
+                    <p class="description">Diseño curvo premium y gran batería</p>
+                    <p class="price">€499</p>
+                    <button onclick="addToCart('Motorola Edge 40', 499)">Añadir al Carrito</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close" onclick="toggleCart()">&times;</span>
+            <h2>Tu Carrito</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <strong>Total: €<span id="cart-total">0</span></strong>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MobileShop. Todos los derechos reservados.</p>
+            <p>📞 Contacto: info@mobileshop.com | ☎️ +34 900 123 456</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
