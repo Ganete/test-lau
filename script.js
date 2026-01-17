@@ -5,6 +5,18 @@ let cart = [];
 window.addEventListener('DOMContentLoaded', () => {
     loadCart();
     updateCartDisplay();
+    
+    // Event delegation for remove buttons
+    document.getElementById('cart-items').addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-btn')) {
+            const productName = e.target.getAttribute('data-product-name');
+            // Find original product name (not escaped) from cart
+            const cartItem = cart.find(item => escapeHtml(item.name) === productName);
+            if (cartItem) {
+                removeFromCart(cartItem.name);
+            }
+        }
+    });
 });
 
 // Add item to cart
@@ -65,7 +77,6 @@ function updateCartDisplay() {
         
         // Escape HTML to prevent XSS
         const escapedName = escapeHtml(item.name);
-        const escapedNameForAttr = item.name.replace(/'/g, "\\'");
         
         itemsHTML += `
             <div class="cart-item">
@@ -73,7 +84,7 @@ function updateCartDisplay() {
                     <div class="cart-item-name">${escapedName}</div>
                     <div class="cart-item-price">€${item.price} x ${item.quantity} = €${itemTotal}</div>
                 </div>
-                <button class="remove-btn" onclick="removeFromCart('${escapedNameForAttr}')">Eliminar</button>
+                <button class="remove-btn" data-product-name="${escapedName}">Eliminar</button>
             </div>
         `;
     });
