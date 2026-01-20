@@ -1,4 +1,14 @@
 // Shopping cart array
+
+// Funcionalidad para los enlaces de redes sociales
+document.addEventListener('DOMContentLoaded', function () {
+    const socialLinks = document.querySelectorAll('.cosmeticSocialLink');
+    socialLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+            alert('Vas a salir del sitio para visitar nuestra red social.');
+        });
+    });
+});
 let cart = [];
 
 // Load cart from localStorage on page load
